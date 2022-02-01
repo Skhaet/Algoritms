@@ -1,0 +1,25 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        i_l = 0
+        i_h = len(nums) - 1
+        k = i_h
+        while i_l <= i_h:
+            i_m = (i_l + i_h)//2
+            if nums[i_m] == target:
+                if k == 0: return [0, 0]
+                answer = [0, 0]
+                while nums[i_m] == target and i_m != 0:
+                    answer[0] = i_m
+                    i_m = i_m - 1
+                i_m = i_m + 1
+                while nums[i_m] == target and i_m != k:
+                    answer[1] = i_m
+                    i_m = i_m +1
+                if nums[0] == target: answer[0] = 0
+                if nums[k] == target: answer[1] = k
+                return answer
+            if nums[i_m] > target:
+                i_h = i_m - 1
+            else:
+                i_l = i_m + 1
+        return [-1, -1]
